@@ -11,10 +11,10 @@ public class Line {
 
     @Override
     public String toString() {
-        return "Line{" +
-                "Id=" + Id +
-                ", value='" + value + '\'' +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getId()).append(",").append(getValue());
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
     }
 
     public int getId() {

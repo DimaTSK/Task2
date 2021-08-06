@@ -1,0 +1,41 @@
+Таблица 1
+1, A
+2, C
+3, D
+4, B
+5, B
+1, D
+1, D
+2, C
+3, B
+Таблица 2
+3, A
+3, B
+1, D
+1, A
+3, B
+2, D
+2, C
+1, A
+Таблица Result
+1, A  D
+1, A  A
+1, A  A
+2, C  D
+2, C  C
+3, D  A
+3, D  B
+3, D  B
+4, B null
+5, B null
+1, D  D
+1, D  A
+1, D  A
+1, D  D
+1, D  A
+1, D  A
+2, C  D
+2, C  C
+3, B  A
+3, B  B
+3, B  B

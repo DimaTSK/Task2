@@ -77,23 +77,3 @@ public class LeftJoin {
     }
 }
 
-
-
-
-
-
-/*public HashMap<String, String> leftJoin (HashMap<Integer,String> firstMap, HashMap<Integer, String> secondMap){
-        HashMap<String,String> result = new HashMap<>();
-        for(Map.Entry<Integer,String> entry : firstMap.entrySet()){
-
-            int id = entry.getKey();
-            if(secondMap.containsKey(id)){
-                result.put(entry.getValue(),secondMap.get(id));
-            }
-            else {
-                result.put(entry.getValue(),null);
-            }
-
-        }
-        return result;
-    }*/

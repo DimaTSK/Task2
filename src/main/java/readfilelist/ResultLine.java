@@ -14,10 +14,11 @@ public class ResultLine extends Line {
 
     @Override
     public String toString() {
-        return "ResultLine{" + "Id=" + this.getId() +
-                ", value='" + this.getValue() + '\'' +
-                "secondValue='" + secondValue + '\'' +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getId()).append(",").append(getValue()).append(" ").append(getSecondValue());
+        stringBuilder.append("\n");
+
+        return stringBuilder.toString();
     }
     public void setSecondValue(String secondValue) {
         this.secondValue = secondValue;
