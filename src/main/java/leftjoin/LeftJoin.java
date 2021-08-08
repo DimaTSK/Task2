@@ -28,71 +28,65 @@ public class LeftJoin {
 
     public LinkedList<ResultLine> leftJoin(LinkedList<Line> firstList, LinkedList<Line> secondList) {
         LinkedList<ResultLine> result = new LinkedList<>();
+        //todo change to usual iterator
         ListIterator<Line> iteratorFirst = firstList.listIterator();
         ListIterator<Line> iteratorSecond = secondList.listIterator();
         int count = 0;
-
+        int oldId = -1;
         while (iteratorFirst.hasNext()) {
             Line lineValue1 = iteratorFirst.next();
-            while (iteratorSecond.hasNext()){
-                Line lineValue2 = iteratorSecond.next();
-                if (lineValue1.getId()==lineValue2.getId()){
-                    result.add(new ResultLine(lineValue1,lineValue2));
-                    break;
+            if (lineValue1.getId() == oldId){
+                for (int i = count; i > 0; i--){
+                    iteratorSecond.previous();
                 }
-                else if (lineValue1.getId()<lineValue2.getId()){
-                    iteratorSecond.previous(); count;
-                    break;;
-                }else if (lineValue1.getId()>lineValue2.getId()){
-                    iteratorFirst.previous(); count;
-                    break;
-
-                }
-
-
             }
-            if (lineValue1.getId() == oldId) {
-                countSecondEquals
+            count = 0;
+            if (iteratorSecond.hasNext()) {
+                while (iteratorSecond.hasNext()) {
+                    Line lineValue2 = iteratorSecond.next();
+                    if (lineValue1.getId() == lineValue2.getId()) {
+                        result.add(new ResultLine(lineValue1, lineValue2));
+                        count++;
+                    } else if (lineValue1.getId() < lineValue2.getId()) {
+                        if (count == 0) {
+                            result.add(new ResultLine(lineValue1));
+                        }
+                        iteratorSecond.previous();
+                        break;
+                    }
+                }
+            } else {
+                result.add(new ResultLine(lineValue1));
             }
             oldId = lineValue1.getId();
-            Line lineValue2 = iteratorSecond.next();
-            if (lineValue1.getId() == lineValue2.getId()) {
-                countSecondEquals++;
-                iteratorFirst.previous();
-                result.add(new ResultLine(lineValue1, lineValue2));
-            } else if (lineValue1.getId() < lineValue2.getId()) {
-                iteratorSecond.previous();
-                result.add(new ResultLine(lineValue1));
-            } else if (lineValue1.getId() > lineValue2.getId()) {
-                iteratorFirst.previous();
-            }
-
         }
-
         return result;
+
     }
 
-    public HashMap<Integer, ArrayList<ValueMap>> leftJoin(HashMap<Integer, ArrayList<String>> firstMap,
-                                                          HashMap<Integer, ArrayList<String>> secondMap) {
 
-        HashMap<Integer, ArrayList<ValueMap>> result = new HashMap<>();
+    public HashMap<Integer, ArrayList<String>> leftJoin(HashMap<Integer, ArrayList<String>> firstMap,
+                                                        HashMap<Integer, ArrayList<String>> secondMap) {
+
+        HashMap<Integer, ArrayList<String>> result = new HashMap<>();
 
         for (Map.Entry<Integer, ArrayList<String>> entry1 : firstMap.entrySet()) {
-            ArrayList<ValueMap> arrList = new ArrayList<>();
+            ArrayList<String> arrList = new ArrayList<>();
             if (secondMap.containsKey(entry1.getKey())) {
                 for (String line : entry1.getValue()) {
 
                     for (String line2 : secondMap.get(entry1.getKey())) {
-                        arrList.add(new ValueMap(line, line2));
+                        arrList.add(line + " " + line2);
                     }
                 }
             } else {
                 for (String line : entry1.getValue()) {
-                    arrList.add(new ValueMap(line));
+                    arrList.add(line + " " + null);
                 }
+                //arrList.addAll(entry1.getValue());
 
             }
-            result.put(entry1.getKey(),arrList);
+            result.put(entry1.getKey(), arrList);
         }
 
 
@@ -100,4 +94,5 @@ public class LeftJoin {
 
     }
 }
+
 

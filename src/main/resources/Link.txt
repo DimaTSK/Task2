@@ -1,1 +1,22 @@
 Таблица Result
+1, A  D
+1, A  A
+1, A  A
+1, D  D
+1, D  A
+1, D  A
+1, D  D
+1, D  A
+1, D  A
+2, C  D
+2, C  C
+2, C  D
+2, C  C
+3, D  A
+3, D  B
+3, D  B
+3, B  A
+3, B  B
+3, B  B
+4, B null
+5, B null

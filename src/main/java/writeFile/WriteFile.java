@@ -32,12 +32,12 @@ public class WriteFile {
 
     }
 
-    public void writeFileMap(HashMap<Integer, ArrayList<ValueMap>> result, String s) {
+    public void writeFileMap(HashMap<Integer, ArrayList<String>> result, String s) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path))) {
             bufferedWriter.append(s).append("\n");
-        for (Map.Entry<Integer, ArrayList<ValueMap>> entry : result.entrySet()) {
-            for (ValueMap line : entry.getValue())
-                bufferedWriter.append(entry.getKey().toString()).append(", ").append(line.toString());
+        for (Map.Entry<Integer, ArrayList<String>> entry : result.entrySet()) {
+            for (String line : entry.getValue())
+                bufferedWriter.append(entry.getKey().toString()).append(",").append(line).append("\n");
         }
         } catch (IOException e) {
             e.printStackTrace();
