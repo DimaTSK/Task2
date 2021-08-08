@@ -12,13 +12,12 @@ public class ResultLine extends Line {
 
     }
 
+
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getId()).append(",").append(getValue()).append(" ").append(getSecondValue());
-        stringBuilder.append("\n");
 
-        return stringBuilder.toString();
+        return getId() + "," + getValue() + " " + getSecondValue() +
+                "\n";
     }
     public void setSecondValue(String secondValue) {
         this.secondValue = secondValue;

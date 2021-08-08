@@ -1,76 +1,48 @@
 package writeFile;
 
-import readfilelist.Line;
+
 import readfilelist.ResultLine;
+import readfilelist.ValueMap;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
-public class WriteFile<T extends Line> {
-    private BufferedWriter bufferedWriter;
+public class WriteFile {
+    private String path;
 
     public WriteFile(String path) {
+        this.path = path;
 
-        try {
-            bufferedWriter = new BufferedWriter(new FileWriter(path));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
-    public void writeFileArr(ArrayList<T> result, String s) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append( s+ "\n");
-        for (T line : result) {
+    public void writeFileList(List<ResultLine> result, String s) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path))) {
+            bufferedWriter.append(s).append("\n");
 
-            stringBuilder.append(line);
-        }
+            for (ResultLine line : result) {
 
-        try {
-            bufferedWriter.append(stringBuilder);
-            bufferedWriter.flush();
+                bufferedWriter.append(line.toString());
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void writeFileLink(LinkedList<T> result,String s) {
-        StringBuilder builder = new StringBuilder();
-        builder.append( s+ "\n");
-        for (T line : result) {
-            builder.append(line);
+    public void writeFileMap(HashMap<Integer, ArrayList<ValueMap>> result, String s) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path))) {
+            bufferedWriter.append(s).append("\n");
+        for (Map.Entry<Integer, ArrayList<ValueMap>> entry : result.entrySet()) {
+            for (ValueMap line : entry.getValue())
+                bufferedWriter.append(entry.getKey().toString()).append(", ").append(line.toString());
         }
-        try {
-            bufferedWriter.append(builder);
-            bufferedWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
-    public void writeFileMap(HashMap<Integer, ArrayList<T>> result, String s) {
-        StringBuilder builderMap = new StringBuilder();
-        builderMap.append( s+ "\n");
-        for (Map.Entry<Integer, ArrayList<T>> entry : result.entrySet()) {
-            for (T line : entry.getValue())
-            builderMap.append(line);
-        }
-        try {
-            bufferedWriter.append(builderMap);
-            bufferedWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 }
 

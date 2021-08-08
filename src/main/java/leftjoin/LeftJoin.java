@@ -2,6 +2,7 @@ package leftjoin;
 
 import readfilelist.Line;
 import readfilelist.ResultLine;
+import readfilelist.ValueMap;
 
 import java.util.*;
 
@@ -14,7 +15,6 @@ public class LeftJoin {
             boolean isAdd = false;
             for (Line lineList2 : secondList) {
                 if (lineList1.getId() == lineList2.getId()) {
-                    //resultLine.setSecondValue(lineList2.getValue());
                     result.add(new ResultLine(lineList1, lineList2));
                     isAdd = true;
                 }
@@ -28,47 +28,71 @@ public class LeftJoin {
 
     public LinkedList<ResultLine> leftJoin(LinkedList<Line> firstList, LinkedList<Line> secondList) {
         LinkedList<ResultLine> result = new LinkedList<>();
-        Iterator<Line> iteratorFirst = firstList.iterator();
+        ListIterator<Line> iteratorFirst = firstList.listIterator();
+        ListIterator<Line> iteratorSecond = secondList.listIterator();
+        int count = 0;
 
         while (iteratorFirst.hasNext()) {
-            boolean isAdd = false;
             Line lineValue1 = iteratorFirst.next();
-            Iterator<Line> iteratorSecond = secondList.iterator();
-            ResultLine resultLine = new ResultLine(lineValue1);
-            while (iteratorSecond.hasNext()) {
+            while (iteratorSecond.hasNext()){
                 Line lineValue2 = iteratorSecond.next();
-                if (lineValue1.getId() == lineValue2.getId()) {
-                    resultLine.setSecondValue(lineValue2.getValue());
-                    result.add(new ResultLine(lineValue1, lineValue2));
-                    isAdd = true;
+                if (lineValue1.getId()==lineValue2.getId()){
+                    result.add(new ResultLine(lineValue1,lineValue2));
+                    break;
+                }
+                else if (lineValue1.getId()<lineValue2.getId()){
+                    iteratorSecond.previous(); count;
+                    break;;
+                }else if (lineValue1.getId()>lineValue2.getId()){
+                    iteratorFirst.previous(); count;
+                    break;
 
                 }
 
-            }
-            if (!isAdd) {
-                result.add(new ResultLine(lineValue1));
-            }
-        }
 
+            }
+            if (lineValue1.getId() == oldId) {
+                countSecondEquals
+            }
+            oldId = lineValue1.getId();
+            Line lineValue2 = iteratorSecond.next();
+            if (lineValue1.getId() == lineValue2.getId()) {
+                countSecondEquals++;
+                iteratorFirst.previous();
+                result.add(new ResultLine(lineValue1, lineValue2));
+            } else if (lineValue1.getId() < lineValue2.getId()) {
+                iteratorSecond.previous();
+                result.add(new ResultLine(lineValue1));
+            } else if (lineValue1.getId() > lineValue2.getId()) {
+                iteratorFirst.previous();
+            }
+
+        }
 
         return result;
     }
 
-    public HashMap<Integer, ArrayList<ResultLine>> leftJoin(HashMap<Integer, ArrayList<Line>> firstMap,
-                                                            HashMap<Integer, ArrayList<Line>> secondMap) {
+    public HashMap<Integer, ArrayList<ValueMap>> leftJoin(HashMap<Integer, ArrayList<String>> firstMap,
+                                                          HashMap<Integer, ArrayList<String>> secondMap) {
 
-        HashMap<Integer, ArrayList<ResultLine>> result = new HashMap<>();
+        HashMap<Integer, ArrayList<ValueMap>> result = new HashMap<>();
 
-        for (Map.Entry<Integer, ArrayList<Line>> entry1 : firstMap.entrySet()) {
-            for (Line line : entry1.getValue()) {
-                if (secondMap.containsKey(entry1.getKey())) {
-                    for (Line line2 : secondMap.get(entry1.getKey())) {
-                        result.computeIfAbsent(entry1.getKey(), ArrayList::new).add(new ResultLine(line, line2));
+        for (Map.Entry<Integer, ArrayList<String>> entry1 : firstMap.entrySet()) {
+            ArrayList<ValueMap> arrList = new ArrayList<>();
+            if (secondMap.containsKey(entry1.getKey())) {
+                for (String line : entry1.getValue()) {
+
+                    for (String line2 : secondMap.get(entry1.getKey())) {
+                        arrList.add(new ValueMap(line, line2));
                     }
-                } else {
-                    result.computeIfAbsent(entry1.getKey(), ArrayList::new).add(new ResultLine(line));
                 }
+            } else {
+                for (String line : entry1.getValue()) {
+                    arrList.add(new ValueMap(line));
+                }
+
             }
+            result.put(entry1.getKey(),arrList);
         }
 
 

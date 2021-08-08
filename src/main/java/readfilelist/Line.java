@@ -11,10 +11,8 @@ public class Line {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getId()).append(",").append(getValue());
-        stringBuilder.append("\n");
-        return stringBuilder.toString();
+        return getId() + "," + getValue() +
+                "\n";
     }
 
     public int getId() {
