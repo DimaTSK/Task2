@@ -2,7 +2,6 @@ package writeFile;
 
 
 import readfilelist.ResultLine;
-import readfilelist.ValueMap;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

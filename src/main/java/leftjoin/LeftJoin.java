@@ -2,7 +2,6 @@ package leftjoin;
 
 import readfilelist.Line;
 import readfilelist.ResultLine;
-import readfilelist.ValueMap;
 
 import java.util.*;
 
@@ -28,8 +27,7 @@ public class LeftJoin {
 
     public LinkedList<ResultLine> leftJoin(LinkedList<Line> firstList, LinkedList<Line> secondList) {
         LinkedList<ResultLine> result = new LinkedList<>();
-        //todo change to usual iterator
-        ListIterator<Line> iteratorFirst = firstList.listIterator();
+        Iterator<Line> iteratorFirst = firstList.iterator();
         ListIterator<Line> iteratorSecond = secondList.listIterator();
         int count = 0;
         int oldId = -1;
