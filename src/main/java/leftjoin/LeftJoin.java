@@ -32,8 +32,9 @@ public class LeftJoin {
         int count = 0;
         int oldId = -1;
         while (iteratorFirst.hasNext()) {
+            boolean isAdd = false;
             Line lineValue1 = iteratorFirst.next();
-            if (lineValue1.getId() == oldId){
+                if (lineValue1.getId() == oldId){
                 for (int i = count; i > 0; i--){
                     iteratorSecond.previous();
                 }
@@ -44,14 +45,19 @@ public class LeftJoin {
                     Line lineValue2 = iteratorSecond.next();
                     if (lineValue1.getId() == lineValue2.getId()) {
                         result.add(new ResultLine(lineValue1, lineValue2));
+                        isAdd= true;
                         count++;
                     } else if (lineValue1.getId() < lineValue2.getId()) {
                         if (count == 0) {
+                            isAdd=true;
                             result.add(new ResultLine(lineValue1));
                         }
                         iteratorSecond.previous();
                         break;
                     }
+                }
+                if (!isAdd){
+                    result.add(new ResultLine(lineValue1));
                 }
             } else {
                 result.add(new ResultLine(lineValue1));
@@ -81,8 +87,6 @@ public class LeftJoin {
                 for (String line : entry1.getValue()) {
                     arrList.add(line + " " + null);
                 }
-                //arrList.addAll(entry1.getValue());
-
             }
             result.put(entry1.getKey(), arrList);
         }
